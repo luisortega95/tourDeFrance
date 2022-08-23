@@ -5,9 +5,9 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * Interface for Cyclist Model
+ * Interfaz para entidad ciclista
  * @author Ricardo Ortega <luis.ortega@sofka.com.co>
- * @version 1.0.0
+ * @version 1.0.0 2022-02-22
  * @since 1.0.0
  */
 public interface CyclistRepository {
@@ -16,9 +16,13 @@ public interface CyclistRepository {
 
     Flux<Cyclist> findAll();
 
-    Mono<Cyclist> findById();
+    Mono<Cyclist> findById(String id);
 
     Mono<Cyclist> update(String id, Cyclist cyclist);
 
     Mono<Void> deleteById(String id);
+
+    Flux<Cyclist> findCyclistsByCountry(String country);
+
+    Flux<Cyclist> findCyclistsByTeamCode(String teamCode);
 }

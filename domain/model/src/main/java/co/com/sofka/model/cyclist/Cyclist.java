@@ -1,5 +1,5 @@
 package co.com.sofka.model.cyclist;
-import co.com.sofka.model.country.Country;
+
 import co.com.sofka.model.cyclingteam.CyclingTeam;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,9 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Entity Cyclist
+ * Entidad ciclista
  * @author Ricardo Ortega <luis.ortega@sofka.com.co>
- * @version 1.0.0
+ * @version 1.0.0 2022-02-22
  * @since 1.0.0
  */
 @Data
@@ -21,6 +21,6 @@ public class Cyclist {
     private String id;
     private String fullName;
     private String competitorNumber;
-    private Country country;
+    private String country;
     private CyclingTeam cyclingTeam;
 }

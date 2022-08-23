@@ -1,5 +1,6 @@
 package co.com.sofka.mongo.helper;
 
+import co.com.sofka.model.cyclist.Cyclist;
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.data.repository.query.ReactiveQueryByExampleExecutor;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;

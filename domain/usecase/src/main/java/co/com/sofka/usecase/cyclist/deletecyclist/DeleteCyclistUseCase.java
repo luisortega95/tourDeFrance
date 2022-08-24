@@ -21,6 +21,6 @@ public class DeleteCyclistUseCase implements Function<String, Mono<Void>> {
     @Override
     public Mono<Void> apply(String id) {
         return cyclistRepository.deleteById(id)
-                .switchIfEmpty(Mono.error(new ErrorMessage("No existe el equipo de ciclismo")));
+                .switchIfEmpty(Mono.error(new ErrorMessage("No existe el ciclista")));
     }
 }

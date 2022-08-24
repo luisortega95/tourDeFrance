@@ -42,5 +42,4 @@ public class CyclingTeamDocument {
     @NotNull(message = "El pais es obligatorio")
     private String country;
 
-    private Integer numberOfCyclists;
 }

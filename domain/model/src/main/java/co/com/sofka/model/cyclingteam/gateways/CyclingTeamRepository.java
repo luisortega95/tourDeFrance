@@ -24,6 +24,6 @@ public interface CyclingTeamRepository {
 
     Flux<CyclingTeam> findCyclingTeamsByCountry(String country);
 
-    Flux<CyclingTeam> findCyclingTeamByTeamCode(String teamCode);
+    Mono<CyclingTeam> findCyclingTeamByTeamCode(String teamCode);
 
 }

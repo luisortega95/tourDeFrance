@@ -10,12 +10,12 @@ import reactor.core.publisher.Mono;
 import java.util.function.Function;
 
 @RequiredArgsConstructor
-public class GetCyclingTeamByCodeUseCase implements Function<String, Flux<CyclingTeam>> {
+public class GetCyclingTeamByCodeUseCase implements Function<String, Mono<CyclingTeam>> {
 
     private final CyclingTeamRepository cyclingTeamRepository;
 
     @Override
-    public Flux<CyclingTeam> apply(String teamCode) {
+    public Mono<CyclingTeam> apply(String teamCode) {
         return cyclingTeamRepository.findCyclingTeamByTeamCode(teamCode)
                 .switchIfEmpty(Mono.error(new ErrorMessage("No existe el equipo de ciclismo por ese codigo")));
     }

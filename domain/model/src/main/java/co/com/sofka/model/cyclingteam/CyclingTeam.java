@@ -23,5 +23,4 @@ public class CyclingTeam {
     private String name;
     private String teamCode;
     private String country;
-    private Integer numberOfCyclists;
 }

@@ -37,7 +37,6 @@ public class MongoRepositoryAdapterCyclist extends AdapterOperations<Cyclist, Cy
     @Override
     public Flux<Cyclist> findCyclistsByTeamCode(String teamCode) {
         return repository.findAll()
-                .log()
                 .filter(cyclist -> cyclist.getCyclingTeamCode().equals(teamCode))
                 .map(m -> mapper.map(m, Cyclist.class));
     }

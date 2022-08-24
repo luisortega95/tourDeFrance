@@ -10,6 +10,7 @@ import co.com.sofka.usecase.cyclist.getcyclist.GetCyclistUseCase;
 import co.com.sofka.usecase.cyclist.getcyclistsbycountry.GetCyclistsByCountryUseCase;
 import co.com.sofka.usecase.cyclist.getcyclistsbyteamcode.GetCyclistsByTeamCodeUseCase;
 import co.com.sofka.usecase.cyclist.updatecyclist.UpdateCyclistUseCase;
+import co.com.sofka.usecase.exception.ErrorMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,6 +21,8 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
+
+import java.util.Objects;
 
 /**
  * Controlador para ciclista
@@ -49,10 +52,15 @@ public class CyclistHandler {
         return serverRequest
                 .bodyToMono(Cyclist.class)
                 .flatMap(createCyclistUseCase)
+                .map(cyclist -> {
+                    if (cyclist.getCompetitorNumber().length() > 3) return Mono.error(new Throwable());
+                    return cyclist;
+                })
                 .flatMap(cyclist -> ServerResponse
                         .status(HttpStatus.CREATED)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .bodyValue(cyclist));
+                        .bodyValue(cyclist))
+                .onErrorResume(error -> Mono.error(new ErrorMessage("El numero de competidor es maximo de 3 digitos")));
     }
 
     public Mono<ServerResponse> getCyclist(ServerRequest serverRequest) {

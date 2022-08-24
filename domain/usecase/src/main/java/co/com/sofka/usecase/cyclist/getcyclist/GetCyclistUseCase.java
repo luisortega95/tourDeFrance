@@ -2,6 +2,7 @@ package co.com.sofka.usecase.cyclist.getcyclist;
 
 import co.com.sofka.model.cyclist.Cyclist;
 import co.com.sofka.model.cyclist.gateways.CyclistRepository;
+import co.com.sofka.usecase.exception.ErrorMessage;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
@@ -21,6 +22,7 @@ public class GetCyclistUseCase implements Function<String, Mono<Cyclist>> {
 
     @Override
     public Mono<Cyclist> apply(String id) {
-        return cyclistRepository.findById(id);
+        return cyclistRepository.findById(id)
+                .switchIfEmpty(Mono.error(new ErrorMessage("No existe el ciclista")));
     }
 }

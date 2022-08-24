@@ -2,8 +2,10 @@ package co.com.sofka.usecase.cyclingteam.getcyclingteamsbycountry;
 
 import co.com.sofka.model.cyclingteam.CyclingTeam;
 import co.com.sofka.model.cyclingteam.gateways.CyclingTeamRepository;
+import co.com.sofka.usecase.exception.ErrorMessage;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.function.Function;
 
@@ -20,6 +22,7 @@ public class GetCyclingTeamsByCountryUseCase implements Function<String, Flux<Cy
 
     @Override
     public Flux<CyclingTeam> apply(String country) {
-        return cyclingTeamRepository.findCyclingTeamsByCountry(country);
+        return cyclingTeamRepository.findCyclingTeamsByCountry(country)
+                .switchIfEmpty(Mono.error(new ErrorMessage("No existen equipos de ciclismo por ese pais")));
     }
 }

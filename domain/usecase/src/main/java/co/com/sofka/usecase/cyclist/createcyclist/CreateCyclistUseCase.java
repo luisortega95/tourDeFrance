@@ -28,7 +28,8 @@ public class CreateCyclistUseCase implements Function<Cyclist, Mono<Cyclist>> {
 
     @Override
     public Mono<Cyclist> apply(Cyclist cyclist) {
-//        cyclingTeamRepository.findCyclingTeamByTeamCode(cyclist.getCyclingTeamCode())
+//        getCyclistsByTeamCodeUseCase.apply(cyclist.getCyclingTeamCode())
+//                .filter(cyclist1 -> cyclist1)
 //                .map(cyclingTeam -> {
 //                    cyclingTeam.getNumberOfCyclists();
 //                    return cyclingTeam;
@@ -40,7 +41,8 @@ public class CreateCyclistUseCase implements Function<Cyclist, Mono<Cyclist>> {
                     if (cyclists > 7) {
                         return Mono.error(new ErrorMessage("El equipo ya tiene el maximo de 8 ciclistas "));
                     }
-                    return cyclistRepository.save(cyclist);
+                    return cyclistRepository.save(cyclist)
+                            .flatMap();
                 });
     }
 }

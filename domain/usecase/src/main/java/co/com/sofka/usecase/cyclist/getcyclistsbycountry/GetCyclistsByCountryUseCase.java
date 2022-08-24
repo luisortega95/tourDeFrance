@@ -2,8 +2,10 @@ package co.com.sofka.usecase.cyclist.getcyclistsbycountry;
 
 import co.com.sofka.model.cyclist.Cyclist;
 import co.com.sofka.model.cyclist.gateways.CyclistRepository;
+import co.com.sofka.usecase.exception.ErrorMessage;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.function.Function;
 
@@ -20,6 +22,7 @@ public class GetCyclistsByCountryUseCase implements Function<String, Flux<Cyclis
 
     @Override
     public Flux<Cyclist> apply(String country) {
-        return cyclistRepository.findCyclistsByCountry(country);
+        return cyclistRepository.findCyclistsByCountry(country)
+                .switchIfEmpty(Mono.error(new ErrorMessage("No existen ciclistas por ese pais")));
     }
 }

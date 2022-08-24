@@ -2,6 +2,7 @@ package co.com.sofka.usecase.cyclist.updatecyclist;
 
 import co.com.sofka.model.cyclist.Cyclist;
 import co.com.sofka.model.cyclist.gateways.CyclistRepository;
+import co.com.sofka.usecase.exception.ErrorMessage;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
@@ -20,6 +21,7 @@ public class UpdateCyclistUseCase implements BiFunction<String, Cyclist, Mono<Cy
 
     @Override
     public Mono<Cyclist> apply(String id, Cyclist cyclist) {
-        return cyclistRepository.update(id, cyclist);
+        return cyclistRepository.update(id, cyclist)
+                .switchIfEmpty(Mono.error(new ErrorMessage("No existe el ciclista")));
     }
 }

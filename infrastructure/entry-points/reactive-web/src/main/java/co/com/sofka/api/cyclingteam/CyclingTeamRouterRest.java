@@ -20,13 +20,13 @@ public class CyclingTeamRouterRest {
 
     @Bean
     public RouterFunction<ServerResponse> cyclingTeamRouterFunction(CyclingTeamHandler cyclingTeamHandler) {
-        return route(GET("/api/cycling-team"), cyclingTeamHandler::getCyclingTeam)
+        return route(GET("/api/cycling-team/{id}"), cyclingTeamHandler::getCyclingTeam)
                 .andRoute(POST("/api/cycling-team"), cyclingTeamHandler::createCyclingTeam)
                 .andRoute(PUT("/api/cycling-team/{id}"), cyclingTeamHandler::updateCyclingTeam)
                 .andRoute(DELETE("/api/cycling-team/{id}"), cyclingTeamHandler::deleteCyclingTeam)
                 .andRoute(GET("/api/cycling-teams"), cyclingTeamHandler::getAllCyclingTeams)
                 .andRoute(GET("/api/cycling-team/code/{code}"), cyclingTeamHandler::getCyclingTeamByCode)
-                .and(route(GET("/api/cycling-team/{country}"), cyclingTeamHandler::getCyclingTeamByCountry));
+                .and(route(GET("/api/cycling-team/country/{country}"), cyclingTeamHandler::getCyclingTeamByCountry));
 
     }
 }

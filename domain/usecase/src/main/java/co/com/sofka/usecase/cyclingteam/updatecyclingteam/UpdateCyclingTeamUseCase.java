@@ -2,6 +2,7 @@ package co.com.sofka.usecase.cyclingteam.updatecyclingteam;
 
 import co.com.sofka.model.cyclingteam.CyclingTeam;
 import co.com.sofka.model.cyclingteam.gateways.CyclingTeamRepository;
+import co.com.sofka.usecase.exception.ErrorMessage;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
@@ -20,6 +21,7 @@ public class UpdateCyclingTeamUseCase implements BiFunction<String, CyclingTeam,
 
     @Override
     public Mono<CyclingTeam> apply(String id, CyclingTeam cyclingTeam) {
-        return cyclingTeamRepository.update(id, cyclingTeam);
+        return cyclingTeamRepository.update(id, cyclingTeam)
+                .switchIfEmpty(Mono.error(new ErrorMessage("No existe el equipo de ciclismo")));
     }
 }

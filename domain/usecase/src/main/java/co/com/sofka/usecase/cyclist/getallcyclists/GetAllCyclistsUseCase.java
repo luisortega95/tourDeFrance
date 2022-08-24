@@ -2,8 +2,10 @@ package co.com.sofka.usecase.cyclist.getallcyclists;
 
 import co.com.sofka.model.cyclist.Cyclist;
 import co.com.sofka.model.cyclist.gateways.CyclistRepository;
+import co.com.sofka.usecase.exception.ErrorMessage;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.function.Supplier;
 
@@ -20,6 +22,7 @@ public class GetAllCyclistsUseCase implements Supplier<Flux<Cyclist>> {
 
     @Override
     public Flux<Cyclist> get() {
-        return cyclistRepository.findAll();
+        return cyclistRepository.findAll()
+                .switchIfEmpty(Mono.error(new ErrorMessage("No existen ciclistas")));
     }
 }

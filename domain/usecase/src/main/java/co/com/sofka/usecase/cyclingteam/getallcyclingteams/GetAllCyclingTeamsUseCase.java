@@ -2,8 +2,10 @@ package co.com.sofka.usecase.cyclingteam.getallcyclingteams;
 
 import co.com.sofka.model.cyclingteam.CyclingTeam;
 import co.com.sofka.model.cyclingteam.gateways.CyclingTeamRepository;
+import co.com.sofka.usecase.exception.ErrorMessage;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.function.Supplier;
 
@@ -20,6 +22,7 @@ public class GetAllCyclingTeamsUseCase implements Supplier<Flux<CyclingTeam>> {
 
     @Override
     public Flux<CyclingTeam> get() {
-        return cyclingTeamRepository.findAll();
+        return cyclingTeamRepository.findAll()
+                .switchIfEmpty(Mono.error(new ErrorMessage("No existen equipos de ciclismo")));
     }
 }

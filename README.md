@@ -6,10 +6,10 @@ Proyecto backend API Rest usando:
 * MongoDB
 
 ## Modulos - Backend
-Application: Configuration, MainApplication
-Deployment: Docker
-Domain: Model, UseCase
-Infrastructure: Driven-adapters, Entry-points
++ Application: Configuration, MainApplication
++ Deployment: Docker
++ Domain: Model, UseCase
++ Infrastructure: Driven-adapters, Entry-points
 
 ## Instrucciones para ejecutar el programa
 1. Clone el repositorio

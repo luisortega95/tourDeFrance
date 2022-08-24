@@ -23,7 +23,7 @@ public class MongoRepositoryAdapterCyclist extends AdapterOperations<Cyclist, Cy
     public Mono<Cyclist> update(String id, Cyclist cyclist) {
         cyclist.setId(id);
         return repository
-                .save(new CyclistDocument(cyclist.getId(), cyclist.getFullName(), cyclist.getCompetitorNumber(), cyclist.getCountry(), cyclist.getCyclingTeam()))
+                .save(new CyclistDocument(cyclist.getId(), cyclist.getFullName(), cyclist.getCompetitorNumber(), cyclist.getCountry(), cyclist.getCyclingTeamCode()))
                 .flatMap(element -> Mono.just(cyclist));
     }
 
@@ -37,8 +37,8 @@ public class MongoRepositoryAdapterCyclist extends AdapterOperations<Cyclist, Cy
     @Override
     public Flux<Cyclist> findCyclistsByTeamCode(String teamCode) {
         return repository.findAll()
-                .filter(cyclist -> cyclist.getCyclingTeam().getTeamCode().equals(teamCode))
                 .log()
+                .filter(cyclist -> cyclist.getCyclingTeamCode().equals(teamCode))
                 .map(m -> mapper.map(m, Cyclist.class));
     }
 

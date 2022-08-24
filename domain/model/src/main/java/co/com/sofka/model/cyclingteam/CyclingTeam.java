@@ -1,10 +1,9 @@
 package co.com.sofka.model.cyclingteam;
 
 import co.com.sofka.model.cyclist.Cyclist;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import reactor.util.annotation.NonNull;
+import reactor.util.annotation.Nullable;
 
 import java.util.List;
 
@@ -24,5 +23,5 @@ public class CyclingTeam {
     private String name;
     private String teamCode;
     private String country;
-    private List<Cyclist> cyclists;
+    private Integer numberOfCyclists;
 }

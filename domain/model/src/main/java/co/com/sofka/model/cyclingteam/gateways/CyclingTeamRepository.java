@@ -23,4 +23,7 @@ public interface CyclingTeamRepository {
     Mono<Void> deleteById(String id);
 
     Flux<CyclingTeam> findCyclingTeamsByCountry(String country);
+
+    Flux<CyclingTeam> findCyclingTeamByTeamCode(String teamCode);
+
 }

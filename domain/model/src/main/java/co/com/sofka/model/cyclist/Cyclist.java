@@ -1,10 +1,7 @@
 package co.com.sofka.model.cyclist;
 
 import co.com.sofka.model.cyclingteam.CyclingTeam;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * Entidad ciclista
@@ -22,5 +19,5 @@ public class Cyclist {
     private String fullName;
     private String competitorNumber;
     private String country;
-    private CyclingTeam cyclingTeam;
+    private String cyclingTeamCode;
 }

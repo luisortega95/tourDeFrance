@@ -1,6 +1,8 @@
 package co.com.sofka.usecase.cyclingteam.deletecyclingteam;
 
+import co.com.sofka.model.cyclingteam.CyclingTeam;
 import co.com.sofka.model.cyclingteam.gateways.CyclingTeamRepository;
+import co.com.sofka.model.cyclist.Cyclist;
 import co.com.sofka.usecase.exception.ErrorMessage;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
@@ -20,7 +22,9 @@ public class DeleteCyclingTeamUseCase implements Function<String, Mono<Void>> {
 
     @Override
     public Mono<Void> apply(String id) {
-        return cyclingTeamRepository.deleteById(id)
-                .switchIfEmpty(Mono.error(new ErrorMessage("No existe el equipo de ciclismo")));
+        return cyclingTeamRepository.findById(id)
+                .switchIfEmpty(Mono.error(new ErrorMessage("No existe el equipo de ciclismo")))
+                .map(CyclingTeam::getId)
+                .flatMap(cyclingTeamRepository::deleteById);
     }
 }

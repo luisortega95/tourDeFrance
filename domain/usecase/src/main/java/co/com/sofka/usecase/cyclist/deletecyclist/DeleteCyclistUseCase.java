@@ -1,5 +1,6 @@
 package co.com.sofka.usecase.cyclist.deletecyclist;
 
+import co.com.sofka.model.cyclist.Cyclist;
 import co.com.sofka.model.cyclist.gateways.CyclistRepository;
 import co.com.sofka.usecase.exception.ErrorMessage;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import java.util.function.Function;
 
 /**
  * Caso de uso para eliminar ciclista por ID
+ *
  * @author Ricardo Ortega <luis.ortega@sofka.com.co>
  * @version 1.0.0 2022-02-22
  * @since 1.0.0
@@ -20,7 +22,9 @@ public class DeleteCyclistUseCase implements Function<String, Mono<Void>> {
 
     @Override
     public Mono<Void> apply(String id) {
-        return cyclistRepository.deleteById(id)
-                .switchIfEmpty(Mono.error(new ErrorMessage("No existe el ciclista")));
+        return cyclistRepository.findById(id)
+                .switchIfEmpty(Mono.error(new ErrorMessage("No existe el ciclista")))
+                .map(Cyclist::getId)
+                .flatMap(cyclistRepository::deleteById);
     }
 }

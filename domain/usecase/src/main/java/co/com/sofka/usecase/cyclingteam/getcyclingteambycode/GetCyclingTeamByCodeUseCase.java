@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Objects;
 import java.util.function.Function;
 
 @RequiredArgsConstructor
@@ -17,6 +18,6 @@ public class GetCyclingTeamByCodeUseCase implements Function<String, Mono<Cyclin
     @Override
     public Mono<CyclingTeam> apply(String teamCode) {
         return cyclingTeamRepository.findCyclingTeamByTeamCode(teamCode)
-                .switchIfEmpty(Mono.error(new ErrorMessage("No existe el equipo de ciclismo por ese codigo")));
+                .onErrorResume(error -> Mono.error(new ErrorMessage("No existe el equipo de ciclismo por ese codigo")));
     }
 }

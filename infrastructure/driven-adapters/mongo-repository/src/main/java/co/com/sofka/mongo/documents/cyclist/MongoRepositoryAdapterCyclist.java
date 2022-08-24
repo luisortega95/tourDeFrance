@@ -23,7 +23,8 @@ public class MongoRepositoryAdapterCyclist extends AdapterOperations<Cyclist, Cy
     public Mono<Cyclist> update(String id, Cyclist cyclist) {
         cyclist.setId(id);
         return repository
-                .save(new CyclistDocument(cyclist.getId(), cyclist.getFullName(), cyclist.getCompetitorNumber(), cyclist.getCountry(), cyclist.getCyclingTeamCode()))
+                .save(new CyclistDocument(cyclist.getId(), cyclist.getFullName(), cyclist.getCompetitorNumber(),
+                        cyclist.getCountry(), cyclist.getCyclingTeamCode()))
                 .flatMap(element -> Mono.just(cyclist));
     }
 

@@ -52,15 +52,10 @@ public class CyclistHandler {
         return serverRequest
                 .bodyToMono(Cyclist.class)
                 .flatMap(createCyclistUseCase)
-                .map(cyclist -> {
-                    if (cyclist.getCompetitorNumber().length() > 3) return Mono.error(new Throwable());
-                    return cyclist;
-                })
                 .flatMap(cyclist -> ServerResponse
                         .status(HttpStatus.CREATED)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .bodyValue(cyclist))
-                .onErrorResume(error -> Mono.error(new ErrorMessage("El numero de competidor es maximo de 3 digitos")));
+                        .bodyValue(cyclist));
     }
 
     public Mono<ServerResponse> getCyclist(ServerRequest serverRequest) {

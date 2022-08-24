@@ -19,7 +19,7 @@ public class CyclistRouterRest {
 
     @Bean
     public RouterFunction<ServerResponse> cyclistRouterFunction(CyclistHandler cyclistHandler) {
-        return route(GET("/api/cyclist"), cyclistHandler::getCyclist)
+        return route(GET("/api/cyclist/{id}"), cyclistHandler::getCyclist)
                 .andRoute(POST("/api/cyclist"), cyclistHandler::createCyclist)
                 .andRoute(PUT("/api/cyclist/{id}"), cyclistHandler::updateCyclist)
                 .andRoute(DELETE("/api/cyclist/{id}"), cyclistHandler::deleteCyclist)

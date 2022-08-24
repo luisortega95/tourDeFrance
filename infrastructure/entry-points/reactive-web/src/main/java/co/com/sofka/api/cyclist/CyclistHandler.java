@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.reactive.function.BodyInserter;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -95,14 +96,14 @@ public class CyclistHandler {
         return ServerResponse
                 .ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(getCyclistsByCountryUseCase.apply(cyclist), CyclingTeam.class);
+                .body(getCyclistsByCountryUseCase.apply(cyclist), Cyclist.class);
     }
 
     public Mono<ServerResponse> getCyclistByTeamCode(ServerRequest serverRequest) {
-        var cyclist = serverRequest.pathVariable("team-code");
+        var cyclist = serverRequest.pathVariable("code");
         return ServerResponse
                 .ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(getCyclistsByTeamCodeUseCase.apply(cyclist), CyclingTeam.class);
+                .body(getCyclistsByTeamCodeUseCase.apply(cyclist), Cyclist.class);
     }
 }

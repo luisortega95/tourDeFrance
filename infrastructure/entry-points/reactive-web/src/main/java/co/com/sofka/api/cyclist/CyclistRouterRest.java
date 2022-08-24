@@ -24,7 +24,7 @@ public class CyclistRouterRest {
                 .andRoute(PUT("/api/cyclist/{id}"), cyclistHandler::updateCyclist)
                 .andRoute(DELETE("/api/cyclist/{id}"), cyclistHandler::deleteCyclist)
                 .andRoute(GET("/api/cyclists"), cyclistHandler::getAllCyclists)
-                .andRoute(GET("/api/cyclist/{country}"), cyclistHandler::getCyclistByCountry)
-                .and(route(GET("/api/cyclist/{team-code}"), cyclistHandler::getCyclistByTeamCode));
+                .andRoute(GET("/api/cyclist/country/{country}"), cyclistHandler::getCyclistByCountry)
+                .and(route(GET("/api/cyclist/team/{code}"), cyclistHandler::getCyclistByTeamCode));
     }
 }

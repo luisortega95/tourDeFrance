@@ -6,6 +6,7 @@ import co.com.sofka.usecase.cyclingteam.createcyclingteam.CreateCyclingTeamUseCa
 import co.com.sofka.usecase.cyclingteam.deletecyclingteam.DeleteCyclingTeamUseCase;
 import co.com.sofka.usecase.cyclingteam.getallcyclingteams.GetAllCyclingTeamsUseCase;
 import co.com.sofka.usecase.cyclingteam.getcyclingteam.GetCyclingTeamUseCase;
+import co.com.sofka.usecase.cyclingteam.getcyclingteambycode.GetCyclingTeamByCodeUseCase;
 import co.com.sofka.usecase.cyclingteam.getcyclingteamsbycountry.GetCyclingTeamsByCountryUseCase;
 import co.com.sofka.usecase.cyclingteam.updatecyclingteam.UpdateCyclingTeamUseCase;
 import co.com.sofka.usecase.cyclist.createcyclist.CreateCyclistUseCase;
@@ -40,6 +41,8 @@ public class CyclingTeamHandler {
     private final DeleteCyclingTeamUseCase deleteCyclingTeamUseCase;
 
     private final GetCyclingTeamsByCountryUseCase getCyclingTeamsByCountryUseCase;
+
+    private final GetCyclingTeamByCodeUseCase getCyclingTeamByCodeUseCase;
 
     public Mono<ServerResponse> createCyclingTeam(ServerRequest serverRequest) {
         return serverRequest
@@ -93,5 +96,13 @@ public class CyclingTeamHandler {
                 .ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(getCyclingTeamsByCountryUseCase.apply(cyclingTeam), CyclingTeam.class);
+    }
+
+    public Mono<ServerResponse> getCyclingTeamByCode(ServerRequest serverRequest) {
+        var cyclingTeam = serverRequest.pathVariable("code");
+        return ServerResponse
+                .ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(getCyclingTeamByCodeUseCase.apply(cyclingTeam), CyclingTeam.class);
     }
 }
